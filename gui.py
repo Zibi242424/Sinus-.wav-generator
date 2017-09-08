@@ -1,9 +1,10 @@
 from tkinter import *
 import os
-from app import fun
+from config import runApp
 
 class GUI(Frame):
-
+    
+    
     def __init__(self,master=None):
         Frame.__init__(self, master)        
         self.grid()
@@ -17,7 +18,7 @@ class GUI(Frame):
         self.filenameEntry = Entry(textvariable=self.filenameEntry, width=80)
         self.filenameEntry.grid()
 
-        self.freq1Label = Label(master, text="Put frequency no. 1 here [Hz]")
+        self.freq1Label = Label(master, text="Put frequency no. 1 here [Hz] (left channel")
         self.freq1Label.config(font=("Times New Roman", 15))
         self.freq1Label.grid()
 
@@ -25,7 +26,7 @@ class GUI(Frame):
         self.freq1Entry = Entry(textvariable=self.freq1Entry, width=80)        
         self.freq1Entry.grid()
 
-        self.freq2Label = Label(master, text="Put frequency no. 2 here [Hz]")
+        self.freq2Label = Label(master, text="Put frequency no. 2 here [Hz] (right channel)")
         self.freq2Label.config(font=("Times New Roman", 15))
         self.freq2Label.grid()
 
@@ -42,12 +43,9 @@ class GUI(Frame):
         self.timeEntry.grid()
 
         def returnSpecs():
-            self.specs = (self.filenameEntry.get(), self.freq1Entry.get(), self.freq2Entry.get(), self.timeEntry.get())        
-            return self.specs
+            self.specs = {"filename": self.filenameEntry.get(), "freq_1": self.freq1Entry.get(),\
+            "freq_2": self.freq2Entry.get(), "time": self.timeEntry.get()}
+            return self.specs        
         
-        self.submitButton = Button(master, text="Submit", command=lambda: fun(returnSpecs()))
+        self.submitButton = Button(master, text="Submit", command=lambda: runApp(returnSpecs()))
         self.submitButton.grid()
-
-if __name__ == "__main__":
-    guiFrame = GUI()
-    guiFrame.mainloop()
